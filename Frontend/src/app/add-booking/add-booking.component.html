@@ -1,0 +1,78 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+
+
+      <form #bookingForm="ngForm">
+
+        <div>
+          <h1>Book Room</h1>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Customer ID </label>
+          <div class="col-sm-10">
+            <input type="text" name="customerid" [(ngModel)]="customer.employeeId" readonly />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="roomNo">Room No</label>
+          <div class="col-sm-10">
+            <input type="text" id="roomNo" name="roomNo" [(ngModel)]="booking.roomNo" required minlength="1"
+              maxlength="100" class="form-control">
+            <div *ngIf="isInvalid('roomNo', bookingForm)" class="text-danger">
+              {{ getErrorMessage('roomNo', bookingForm) }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="noOfDays">No of Days</label>
+          <div class="col-sm-10">
+            <input type="number" id="noOfDays" name="noOfDays" [(ngModel)]="booking.noOfDays" required min="1"
+              class="form-control">
+            <div *ngIf="isInvalid('noOfDays', bookingForm)" class="text-danger">
+              {{ getErrorMessage('noOfDays', bookingForm) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="roomType">Room Type</label>
+          <div class="col-sm-10">
+            <select id="roomType" name="roomType" [(ngModel)]="booking.roomType" required class="form-control">
+              <option value="" disabled selected>Select Room Type</option>
+              <option value="King">King</option>
+              <option value="Single">Single</option>
+              <option value="Double">Double</option>
+              <option value="Twin">Twin</option>
+            </select>
+            <div *ngIf="isInvalid('roomType', bookingForm)" class="text-danger">
+              {{ getErrorMessage('roomType', bookingForm) }}
+            </div><button (click)="Calculate(booking.noOfDays,booking.totalAmount)"
+              class="btn btn-outline-primary">Calculate</button>
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="totalAmount">Total Amount</label>
+          <div class="col-sm-10">
+            <input type="text" id="totalAmount" name="totalAmount" [(ngModel)]="booking.totalAmount"
+              class="form-control" readonly>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12 text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">Submit</button>
+            <button type="reset" class="btn btn-secondary ml-2" (click)="bookingForm.reset()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
